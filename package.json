@@ -5,7 +5,7 @@
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/JohnBra/vite-web-extension.git"
+    "url": "https://github.com/denistex/vite-web-extension.git"
   },
   "engines": {
     "node": ">=24.8.0",
