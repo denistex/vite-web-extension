@@ -10,21 +10,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out code
-        uses: actions/checkout@v4
-        with:
-          fetch-depth: 2
+        uses: actions/checkout@v5
 
       - name: Setup Node.js environment
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@v5
         with:
-          node-version: 18
-          cache: "yarn"
+          node-version: 24.8.0
+          cache: "npm"
 
       - name: Install dependencies
-        run: yarn
+        run: npm ci
 
       - name: Build Chrome
-        run: yarn build:chrome
+        run: npm run build:chrome
 
       - name: Upload Chrome extension artifacts
         uses: actions/upload-artifact@v3
