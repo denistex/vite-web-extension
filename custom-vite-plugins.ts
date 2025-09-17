@@ -1,6 +1,7 @@
 import fs from 'fs';
 import { resolve } from 'path';
-import type { PluginOption } from 'vite';
+
+import type { Plugin, PluginOption } from 'vite';
 
 // plugin to remove dev icons from prod build
 export function stripDevIcons (isDev: boolean) {
@@ -11,19 +12,28 @@ export function stripDevIcons (isDev: boolean) {
     resolveId (source: string) {
       return source === 'virtual-module' ? source : null
     },
-    renderStart (outputOptions: any, inputOptions: any) {
+    renderStart (outputOptions) {
       const outDir = outputOptions.dir
-      fs.rm(resolve(outDir, 'dev-icon-32.png'), () => console.log(`Deleted dev-icon-32.png from prod build`))
-      fs.rm(resolve(outDir, 'dev-icon-128.png'), () => console.log(`Deleted dev-icon-128.png from prod build`))
+      if (outDir != null) {
+        fs.rm(
+          resolve(outDir, 'dev-icon-32.png'),
+          () => console.log(`Deleted dev-icon-32.png from prod build`)
+        )
+
+        fs.rm(
+          resolve(outDir, 'dev-icon-128.png'),
+          () => console.log(`Deleted dev-icon-128.png from prod build`)
+        )
+      }
     }
-  }
+  } as Plugin
 }
 
 // plugin to support i18n 
 export function crxI18n (options: { localize: boolean, src: string }): PluginOption {
   if (!options.localize) return null
 
-  const getJsonFiles = (dir: string): Array<string> => {
+  const getJsonFiles = (dir: string): string[] => {
     const files = fs.readdirSync(dir, {recursive: true}) as string[]
     return files.filter(file => !!file && file.endsWith('.json'))
   }
@@ -52,5 +62,5 @@ export function crxI18n (options: { localize: boolean, src: string }): PluginOpt
         })
       }
     }
-  }
+  } as Plugin
 }
