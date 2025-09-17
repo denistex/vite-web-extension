@@ -1,11 +1,11 @@
-import { resolve } from 'path';
+import { resolve } from "path";
 
-import { crx, ManifestV3Export } from '@crxjs/vite-plugin';
-import { mergeConfig, defineConfig } from 'vite';
+import { crx, ManifestV3Export } from "@crxjs/vite-plugin";
+import { mergeConfig, defineConfig } from "vite";
 
-import baseConfig, { baseManifest, baseBuildOptions } from './vite.config.base'
+import baseConfig, { baseManifest, baseBuildOptions } from "./vite.config.base";
 
-const outDir = resolve(__dirname, 'dist_firefox');
+const outDir = resolve(__dirname, "dist_firefox");
 
 export default mergeConfig(
   baseConfig,
@@ -15,19 +15,19 @@ export default mergeConfig(
         manifest: {
           ...baseManifest,
           background: {
-            scripts: [ 'src/pages/background/index.ts' ]
+            scripts: ["src/pages/background/index.ts"],
           },
         } as ManifestV3Export,
-        browser: 'firefox',
+        browser: "firefox",
         contentScripts: {
           injectCss: true,
-        }
-      })
+        },
+      }),
     ],
     build: {
       ...baseBuildOptions,
-      outDir
+      outDir,
     },
-    publicDir: resolve(__dirname, 'public'),
-  })
-)
+    publicDir: resolve(__dirname, "public"),
+  }),
+);

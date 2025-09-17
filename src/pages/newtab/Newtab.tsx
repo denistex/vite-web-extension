@@ -1,5 +1,5 @@
-import logo from '@assets/img/logo.svg';
-import '@pages/newtab/Newtab.css';
+import logo from "@assets/img/logo.svg";
+import "@pages/newtab/Newtab.css";
 
 export default function Newtab() {
   return (

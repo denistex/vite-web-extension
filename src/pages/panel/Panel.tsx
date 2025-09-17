@@ -1,4 +1,4 @@
-import '@pages/panel/Panel.css';
+import "@pages/panel/Panel.css";
 
 export default function Panel() {
   return (

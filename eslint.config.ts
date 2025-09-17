@@ -1,5 +1,5 @@
 import js from "@eslint/js";
-import { defineConfig, globalIgnores } from "eslint/config"
+import { defineConfig, globalIgnores } from "eslint/config";
 import prettierConfig from "eslint-config-prettier/flat";
 import importPlugin from "eslint-plugin-import";
 import jsxA11yPlugin from "eslint-plugin-jsx-a11y";
@@ -63,4 +63,4 @@ export default defineConfig([
       ],
     },
   },
-])
+]);

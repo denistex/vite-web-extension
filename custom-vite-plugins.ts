@@ -1,66 +1,67 @@
-import fs from 'fs';
-import { resolve } from 'path';
+import fs from "fs";
+import { resolve } from "path";
 
-import type { Plugin, PluginOption } from 'vite';
+import type { Plugin, PluginOption } from "vite";
 
 // plugin to remove dev icons from prod build
-export function stripDevIcons (isDev: boolean) {
-  if (isDev) return null
+export function stripDevIcons(isDev: boolean) {
+  if (isDev) return null;
 
   return {
-    name: 'strip-dev-icons',
-    resolveId (source: string) {
-      return source === 'virtual-module' ? source : null
+    name: "strip-dev-icons",
+    resolveId(source: string) {
+      return source === "virtual-module" ? source : null;
     },
-    renderStart (outputOptions) {
-      const outDir = outputOptions.dir
+    renderStart(outputOptions) {
+      const outDir = outputOptions.dir;
       if (outDir != null) {
-        fs.rm(
-          resolve(outDir, 'dev-icon-32.png'),
-          () => console.log(`Deleted dev-icon-32.png from prod build`)
-        )
+        fs.rm(resolve(outDir, "dev-icon-32.png"), () =>
+          console.log(`Deleted dev-icon-32.png from prod build`),
+        );
 
-        fs.rm(
-          resolve(outDir, 'dev-icon-128.png'),
-          () => console.log(`Deleted dev-icon-128.png from prod build`)
-        )
+        fs.rm(resolve(outDir, "dev-icon-128.png"), () =>
+          console.log(`Deleted dev-icon-128.png from prod build`),
+        );
       }
-    }
-  } as Plugin
+    },
+  } as Plugin;
 }
 
-// plugin to support i18n 
-export function crxI18n (options: { localize: boolean, src: string }): PluginOption {
-  if (!options.localize) return null
+// plugin to support i18n
+export function crxI18n(options: {
+  localize: boolean;
+  src: string;
+}): PluginOption {
+  if (!options.localize) return null;
 
   const getJsonFiles = (dir: string): string[] => {
-    const files = fs.readdirSync(dir, {recursive: true}) as string[]
-    return files.filter(file => !!file && file.endsWith('.json'))
-  }
-  const entry = resolve(__dirname, options.src)
-  const localeFiles = getJsonFiles(entry)
-  const files = localeFiles.map(file => {
+    const files = fs.readdirSync(dir, { recursive: true }) as string[];
+    return files.filter((file) => !!file && file.endsWith(".json"));
+  };
+  const entry = resolve(__dirname, options.src);
+  const localeFiles = getJsonFiles(entry);
+  const files = localeFiles.map((file) => {
     return {
-      id: '',
+      id: "",
       fileName: file,
-      source: fs.readFileSync(resolve(entry, file))
-    }
-  })
+      source: fs.readFileSync(resolve(entry, file)),
+    };
+  });
   return {
-    name: 'crx-i18n',
-    enforce: 'pre',
+    name: "crx-i18n",
+    enforce: "pre",
     buildStart: {
-      order: 'post',
+      order: "post",
       handler() {
         files.forEach((file) => {
-            const refId = this.emitFile({
-              type: 'asset',
-              source: file.source,
-              fileName: '_locales/'+file.fileName
-            })
-            file.id = refId
-        })
-      }
-    }
-  } as Plugin
+          const refId = this.emitFile({
+            type: "asset",
+            source: file.source,
+            fileName: "_locales/" + file.fileName,
+          });
+          file.id = refId;
+        });
+      },
+    },
+  } as Plugin;
 }

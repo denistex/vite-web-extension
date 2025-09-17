@@ -1,11 +1,11 @@
-declare module '*.svg' {
-  import * as React from 'react';
+declare module "*.svg" {
+  import * as React from "react";
   export const ReactComponent: React.SFC<React.SVGProps<SVGSVGElement>>;
   const src: string;
   export default src;
 }
 
-declare module '*.json' {
+declare module "*.json" {
   const content: string;
   export default content;
 }
