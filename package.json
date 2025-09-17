@@ -16,6 +16,11 @@
     "*.{js,mjs,jsx,ts,tsx}": "npm run lint:base --",
     "*.{js,mjs,jsx,ts,tsx,css,md}": "npm run format:base -- --check"
   },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
   "scripts": {
     "build": "vite build --config vite.config.chrome.ts",
     "build:chrome": "vite build --config vite.config.chrome.ts",
@@ -29,7 +34,8 @@
     "format:base": "prettier --ignore-unknown --cache --cache-location ./node_modules/.cache/prettier/.prettier-cache --cache-strategy content",
     "format:check-all": "npm run format:base -- --check .",
     "lint:base": "eslint --max-warnings 0 --cache --cache-location ./node_modules/.cache/eslint/.eslint-cache --cache-strategy content",
-    "lint:check-all": "npm run lint:base -- ."
+    "lint:check-all": "npm run lint:base -- .",
+    "prepare": "husky"
   },
   "dependencies": {
     "react": "^19.1.1",
@@ -37,6 +43,8 @@
     "webextension-polyfill": "^0.12.0"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.1",
+    "@commitlint/config-conventional": "^19.8.1",
     "@crxjs/vite-plugin": "^2.2.0",
     "@eslint/js": "^9.35.0",
     "@tailwindcss/vite": "^4.1.13",
@@ -56,6 +64,7 @@
     "eslint-plugin-react-hooks": "^5.2.0",
     "fs-extra": "^11.3.1",
     "globals": "^16.4.0",
+    "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "nodemon": "^3.1.10",
     "prettier": "^3.6.2",
