@@ -59,15 +59,14 @@ for Chrome by default.
 
 1. Clone this repository or click "Use this template"
 2. Change `name` and `description` in `manifest.json`
-3. Run `yarn` or `npm i` (check your node version >= 16)
-4. Run `yarn dev[:chrome|:firefox]`, or `npm run dev[:chrome|:firefox]`
+3. Run `npm i` (check your node version >= 16)
+4. Run `npm run dev[:chrome|:firefox]`
 
 Running a `dev` command will build your extension and watch for changes in the
 source files. Changing the source files will refresh the corresponding
 `dist_<chrome|firefox>` folder.
 
-To create an optimized production build, run `yarn build[:chrome|:firefox]`, or
-`npm run build[:chrome|:firefox]`.
+To create an optimized production build, run `npm run build[:chrome|:firefox]`.
 
 #### Load your extension
 
