@@ -35,6 +35,7 @@
     "format:check-all": "npm run format:base -- --check .",
     "lint:base": "eslint --max-warnings 0 --cache --cache-location ./node_modules/.cache/eslint/.eslint-cache --cache-strategy content",
     "lint:check-all": "npm run lint:base -- .",
+    "validate": "npm-run-all --parallel typecheck format:check-all lint:check-all",
     "prepare": "husky"
   },
   "dependencies": {
@@ -67,6 +68,7 @@
     "husky": "^9.1.7",
     "lint-staged": "^16.1.6",
     "nodemon": "^3.1.10",
+    "npm-run-all2": "^8.0.4",
     "prettier": "^3.6.2",
     "prettier-plugin-tailwindcss": "^0.6.14",
     "tailwindcss": "^4.1.13",
